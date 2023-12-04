@@ -1,2 +1,4 @@
 # cat-renderer
-Meow
+run command => `npm run start`
+
+Add inputs
