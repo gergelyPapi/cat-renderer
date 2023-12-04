@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import ImageWithLoader from './components/ImageWithLoader';
+import * as _ from 'lodash'
 
 const App = () => {
-  const baseCatUrl = 'https://cataas.com/cat/gif';
+  const baseCatUrl = 'https://cataas.com/cat';
+  const defaultCatUrl = 'https://cataas.com/cat/gif/says/Hello?filter=mono&fontColor=orange&fontSize=20&type=square';
 
   const [formData, setFormData] = useState({
     type: '',
@@ -10,12 +12,10 @@ const App = () => {
     width: '',
     height: '',
   });
-  const [imageUrl, setimageUrl] = useState('https://cataas.com/cat/gif/says/Hello?filter=mono&fontColor=orange&fontSize=20&type=square');
+  const [imageUrl, setimageUrl] = useState(defaultCatUrl);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name)
-    console.log(value)
     setFormData({
       ...formData,
       [name]: value,
@@ -34,13 +34,12 @@ const App = () => {
   };
 
   const createUrl = (formDataObject) => {
-    console.log(formDataObject);
     let catUrl = `${baseCatUrl}`
     let urlExtended = false;
-    Object.keys(formDataObject).forEach((key, index) => {
-      const obectValue = formDataObject[key];
-      if(obectValue.length > 0) {
-        catUrl += `${!urlExtended ? '?' : '&'}${key}=${formDataObject[key]}`;
+    Object.keys(formDataObject).forEach(key => {
+      let objectValue = formDataObject[key];
+      if(objectValue.length > 0) {
+        catUrl += `${!urlExtended ? '?' : '&'}${key}=${objectValue}`;
         urlExtended = true;
       }
     })
@@ -50,9 +49,9 @@ const App = () => {
   return (
     <div className='container'>
       <div className = "form-box">
-        <h5 className = "form-step"> Select options for your cat to appear </h5>
+        <h5> Select options for your cat to appear </h5>
         <form onSubmit = {handleSubmit}>
-          <div className = "field1">
+          <div>
             <select
               id="type"
               name="type"
@@ -81,12 +80,16 @@ const App = () => {
               className = "form-input"
               name ="width" 
               placeholder="width"
+              value={formData.width}
+              onChange={handleInputChange}
             />
             <input
               type ="text" 
               className = "form-input"
-              name ="height" 
+              name ="height"
               placeholder="height"
+              value={formData.height}
+              onChange={handleInputChange}
             />
           </div>
         <button className = "submitBtn" type = "submit">Submit</button>

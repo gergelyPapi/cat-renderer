@@ -1,4 +1,3 @@
-import "./imageWithLoader.css";
 import React from "react";
 
 function template() {
