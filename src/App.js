@@ -38,7 +38,7 @@ const App = () => {
     let urlExtended = false;
     Object.keys(formDataObject).forEach(key => {
       let objectValue = formDataObject[key];
-      if(objectValue.length > 0) {
+      if (objectValue.length > 0) {
         catUrl += `${!urlExtended ? '?' : '&'}${key}=${objectValue}`;
         urlExtended = true;
       }
